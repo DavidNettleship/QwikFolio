@@ -1,4 +1,5 @@
 import crypto_api as cr
+import stocks_api as st
 import read as rd
 import group as gp
 
@@ -18,7 +19,11 @@ def main():
     cprices = cc.coingecko_live()
 
     cl = gr.current_value(cg, cprices)
-    #print(cl)
+    print(cl)
     print(cl[8:9]) #Total
+
+    s1 = st.Stocks(currency)
+    print(s1.alpha())
+
 
 main()
