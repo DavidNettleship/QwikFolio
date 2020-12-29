@@ -1,4 +1,5 @@
 import json
+import requests
 
 class AssetList:
 
@@ -27,13 +28,22 @@ class AssetList:
         return egroup
     
 
-    #works for crypto api - may need new function for stocks
-    def current_value(self, group, prices):
+    def usd_to_gbp(self):
+        file = open('../data/av_key.txt',"r")
+        key = file.readline().strip("\n")
+
+        response = requests.get('https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=GBP' +'&apikey='+key)
+        rate = response.json()
+        forex = (dict(rate).get(list(rate)[0])).get('5. Exchange Rate')
+
+        return forex
+
+
+    def crypto_current_value(self, group, prices):
         current_value = []
         total = 0
 
         for asset in group:
-
             api_name = asset['API Name']
 
             for price in prices:
@@ -49,3 +59,33 @@ class AssetList:
         current_value.append("Total: " + str(total))
         return current_value
  
+
+    def equity_current_value(self, group, prices):
+        current_value = []
+        total = 0
+        forex = self.usd_to_gbp()
+
+        for asset in group:
+            ticker = (asset.get(list(asset)[2]))
+            api_name = asset['API Name']
+
+            for price in prices:
+                if price.get('Meta Data').get('2. Symbol') == api_name:
+
+                    tick = price.get('Time Series (5min)')
+                    last_updated = list(tick)[0]
+                    price_data = tick.get(last_updated)
+
+                    pr = price_data.get(list(price_data)[3])
+
+                    value = asset['Quantity']
+
+                    value = str(round((value * float(pr)* float(forex)), 2))
+                    total = round(total + float(value),2)
+
+                    current_value.append("Asset: " + asset['Ticker'] + " | Quantity: " + str(asset['Quantity']) + 
+                    " | Market Value: " + str(round(float(pr) * float(forex),2)) + " | Portfolio Value: " + value)
+        
+        current_value.append("Total: " + str(total))
+        return current_value
+
