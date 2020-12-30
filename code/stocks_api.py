@@ -15,10 +15,10 @@ class Stocks:
     def alpha(self):
         file = open('../data/av_key.txt',"r") #av_key.txt contains api key
         key = file.readline().strip("\n")
-        stonks = "MSFT:SWKS:O:FB:SNOW"
+        data = []
 
-        for stock in stonks.split(":"):
-                response_av = requests.get('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+stock+'&apikey='+key)
-                data = (response_av.json())
+        for stock in self.assets:
+                response = requests.get('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+stock+'&apikey='+key)
+                data.append(response.json())
 
         return data
