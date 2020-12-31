@@ -25,7 +25,8 @@ def main():
     print(cl[8:9]) #Total
 
     s1 = st.Stocks(equity_assets)
-    print(s1.alpha())
+    dat = s1.alpha()
+    print(dat[0])
 
 
 main()

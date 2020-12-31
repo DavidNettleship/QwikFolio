@@ -18,7 +18,7 @@ class Stocks:
         data = []
 
         for stock in self.assets:
-                response = requests.get('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+stock+'&apikey='+key)
+                response = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stock+ '&interval=5min' +'&apikey='+key)
                 data.append(response.json())
 
         return data
