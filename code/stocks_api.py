@@ -11,9 +11,10 @@ class Stocks:
     def ls_assets(self):
        print(self.assets)
        
-       
+    
+    #intraday stock price from alphavantage api
     def alpha(self):
-        file = open('../data/av_key.txt',"r") #av_key.txt contains api key
+        file = open('../data/av_key.txt',"r")
         key = file.readline().strip("\n")
         data = []
 

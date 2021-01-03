@@ -20,13 +20,16 @@ def main():
     cc = cr.Crypto(crypto_assets, currency)
     cprices = cc.coingecko_live()
 
-    cl = gr.current_value(cg, cprices)
-    print(cl)
-    print(cl[8:9]) #Total
+    cl = gr.crypto_current_value(cg, cprices)
 
     s1 = st.Stocks(equity_assets)
     dat = s1.alpha()
-    print(dat[0])
 
+    sl = gr.equity_current_value(sg, dat)
+    print(cl)
+    print("Total Crypto: " + str(cl[8:9]))
+    print(sl)
+    print("Total Stocks: " + str(sl[2:3]))
+    totals = str(sl[2:3])
 
 main()
