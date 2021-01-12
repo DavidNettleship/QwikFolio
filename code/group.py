@@ -89,3 +89,22 @@ class AssetList:
         current_value.append("Total: " + str(total))
         return current_value
 
+
+    def chart_group(self, assets):
+
+        asa = []
+        vals = []
+        tot = []
+
+        for a_class in assets:
+            tot.append(a_class[-1].split(': ')[1])
+            del a_class[-1]
+
+            for asset in a_class:
+                name = (asset.split('|')[0].split(': ')[1])
+                val = (asset.split('|')[3].split(': ')[1])
+
+                asa.append(name)
+                vals.append(val)
+
+        return asa, vals, tot

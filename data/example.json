@@ -1,0 +1,34 @@
+{
+    "Assets": [
+      {
+        "Long Name": "Bitcoin",
+        "API Name": "bitcoin",
+        "Ticker": "BTC",
+        "Class": "crypto",
+        "Quantity": 1
+      },
+      {
+        "Long Name": "Ethereum",
+        "API Name": "ethereum",
+        "Ticker": "ETH",
+        "Class": "crypto",
+        "Quantity": 10
+      },
+      {
+        "Long Name": "Microsoft",
+        "API Name": "MSFT",
+        "Ticker": "MSFT",
+        "Class": "equity",
+        "Exchange": "NASDAQ",
+        "Quantity": 5
+      },
+      {
+        "Long Name": "Skyworks Solutions",
+        "API Name": "SWKS",
+        "Ticker": "SWKS",
+        "Class": "equity",
+        "Exchange": "NASDAQ",
+        "Quantity": 1
+      }
+    ]
+}

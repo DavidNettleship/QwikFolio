@@ -2,6 +2,7 @@ import crypto_api as cr
 import stocks_api as st
 import read as rd
 import group as gp
+import charts as cha
 
 #vars
 currency = 'gbp'
@@ -9,7 +10,7 @@ currency = 'gbp'
 
 def main():
 
-    ra = rd.ReadAssets('../data/assets.json')
+    ra = rd.ReadAssets('../data/example.json')
     alist = ra.fetch_assets()
     gr = gp.AssetList(alist)
     cg = gr.group_crypto()
@@ -26,10 +27,14 @@ def main():
     dat = s1.alpha()
 
     sl = gr.equity_current_value(sg, dat)
-    print(cl)
-    print("Total Crypto: " + str(cl[8:9]))
-    print(sl)
-    print("Total Stocks: " + str(sl[2:3]))
-    totals = str(sl[2:3])
+
+    group = []
+    group.append(cl)
+    group.append(sl)
+    group = gr.chart_group(group)
+
+    chart = cha.Chart(group)
+    chart.draw_pie(group)
+
 
 main()
