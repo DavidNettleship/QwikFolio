@@ -23,13 +23,16 @@ def main():
     cl = gr.crypto_current_value(cg, cprices)
 
     s1 = st.Stocks(equity_assets)
-    dat = s1.alpha()
+    #dat = s1.alpha()
+    dat = s1.yfinance_close()
 
-    sl = gr.equity_current_value(sg, dat)
-    print(cl)
-    print("Total Crypto: " + str(cl[8:9]))
-    print(sl)
-    print("Total Stocks: " + str(sl[2:3]))
-    totals = str(sl[2:3])
+    sl = gr.equity_current_value_yf(sg, dat)
+
+    for result in cl:
+        print(result)
+
+    for result in sl:
+        print(result)
+
 
 main()

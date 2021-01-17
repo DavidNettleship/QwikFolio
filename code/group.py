@@ -60,7 +60,7 @@ class AssetList:
         return current_value
  
 
-    def equity_current_value(self, group, prices):
+    def equity_current_value_av(self, group, prices):
         current_value = []
         total = 0
         forex = self.usd_to_gbp()
@@ -86,6 +86,28 @@ class AssetList:
                     current_value.append("Asset: " + asset['Ticker'] + " | Quantity: " + str(asset['Quantity']) + 
                     " | Market Value: " + str(round(float(pr) * float(forex),2)) + " | Portfolio Value: " + value)
         
+        current_value.append("Total: " + str(total))
+        return current_value
+
+
+    def equity_current_value_yf(self, group, prices):
+        current_value = []
+        total = 0
+        forex = self.usd_to_gbp()
+
+        for asset in group:
+            api_name = asset['API Name']
+            value = asset['Quantity']
+
+            for price in prices:
+
+                if list(price)[1] == api_name:
+                    pr = float(list(price)[0])
+                    value = round(float(value) * pr * float(forex),2)
+                    total = round(total + float(value),2)
+                    current_value.append("Asset: " + asset['Ticker'] + " | Quantity: " + str(asset['Quantity']) + 
+                    " | Market Value: " + str(round(float(list(price)[0]) * float(forex),2)) + " | Portfolio Value: " + str(value))
+
         current_value.append("Total: " + str(total))
         return current_value
 
